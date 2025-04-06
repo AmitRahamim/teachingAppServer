@@ -20,7 +20,7 @@ const io = socketIo(server, {
 
 // Connect to MongoDB (adjust connection string as needed)
 mongoose
-  .connect('mongodb://localhost:27017/codeapp', {
+  .connect(process.env.MONGO_URL || 'mongodb://localhost:27017/codeapp', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
