@@ -18,7 +18,7 @@ const io = socketIo(server, {
   },
 });
 
-// Connect to MongoDB (adjust connection string as needed)
+// Connect to MongoDB 
 mongoose
   .connect(process.env.MONGO_URL || 'mongodb://localhost:27017/codeapp', {
     useNewUrlParser: true,
@@ -30,9 +30,9 @@ mongoose
 // Object to track rooms and their state
 const rooms = {};
 
-// --- Express Endpoints --- //
+//  Express Endpoints//
 
-// Get all code blocks (for the Lobby)
+// Get all code blocks 
 app.get('/api/codeblocks', async (req, res) => {
   try {
     const codeBlocks = await CodeBlock.find();
@@ -53,7 +53,7 @@ app.get('/api/codeblocks/:id', async (req, res) => {
   }
 });
 
-// --- Socket.IO Integration --- //
+
 
 io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
@@ -61,13 +61,13 @@ io.on('connection', (socket) => {
   socket.on('joinRoom', ({ roomId }) => {
     socket.join(roomId);
 
-    // Initialize room if not exists
+    
     if (!rooms[roomId]) {
       rooms[roomId] = { mentor: null, students: {}, currentCode: null };
     }
     const room = rooms[roomId];
 
-    // Assign role: first client becomes mentor, others become students with a student number.
+    // first client becomes mentor, others become students with a student number.
     let role = 'student';
     if (!room.mentor) {
       room.mentor = socket.id;
