@@ -32,7 +32,7 @@ const rooms = {};
 
 //  Express Endpoints//
 
-// Get all code blocks 
+// Get all code blocks (for the Lobby)
 app.get('/api/codeblocks', async (req, res) => {
   try {
     const codeBlocks = await CodeBlock.find();
